@@ -44,11 +44,11 @@ t_img   *init_img(void)
     return (image);
 }
 
-t_game  *init_game(void)
+t_data  *init_game(void)
 {
-    t_game  *game;
+    t_data  *game;
     
-    game = malloc(sizeof(t_game));
+    game = malloc(sizeof(t_data));
     if (!game)
         ft_error("[init_game(...)] : t_game malloc failed");
     garbage_collector(game, false);

@@ -31,7 +31,7 @@ void    render_background(t_img *img, int color)
 
 int	main(int ac, char **av)
 {
-    t_game *data;
+    t_data *data;
 
     data = init_game();
     if (ac != 2)

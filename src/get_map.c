@@ -12,6 +12,8 @@
 
 #include "cub3d.h"
 
+void	get_map_dim(t_map *map, char *path);
+
 t_map	*get_map(char *path)
 {
 	int	fd;

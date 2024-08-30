@@ -13,11 +13,14 @@
 #ifndef STRUCT_H
 # define STRUCT_H
 
+# define WIN_WIDTH 640
+# define WIN_HEIGHT 360
+
 typedef struct s_img
 {
 	void	*mlx_img;
 	char	*addr;
-	int		bpp;
+	int		bpp;	// bits per pixel
 	int		line_len;
 	int		endian;
 }	t_img;
@@ -46,13 +49,82 @@ typedef struct s_map
 	t_texture	*texture;
 }	t_map;
 
-typedef struct s_game
+typedef struct s_player
+{
+	double	x;
+	double	y;
+	double	dx;
+	double	dy;
+	double	px;
+	double	py;
+	double	movespeed;
+	double	rotspeed;
+	bool	is_moving;
+}	t_player;
+
+/**
+ * All the raycasting data
+ * 
+ * cx The camera plane
+ * dx The direction x
+ * dy The direction y
+ * mx The map x
+ * my The map y
+ * sx The step x
+ * sy The step y
+ * sdx The side distance x
+ * sdy The side distance y
+ * ddx The delta distance x
+ * ddy The delta distance y
+ * wd The wall distance
+ * side The side of the wall hit
+ * h The height of the wall
+ * ds The draw start
+ * de The draw end
+ * wx The wall x
+ */
+
+typedef struct s_ray
+{
+	double	cx;
+	double	dx;
+	double	dy;
+	int		mx;
+	int		my;
+	int		sx;
+	int		sy;
+	double	sdx;
+	double	sdy;
+	double	ddx;
+	double	ddy;
+	double	wd;
+	int		side;
+	int		h;
+	int		ds;
+	int		de;
+	double	wx;
+}	t_ray;
+
+typedef struct s_player
+{
+	double	x;
+	double	y;
+	double	dx;
+	double	dy;
+	double	px;
+	double	py;
+	double	movespeed;
+	double	rotspeed;
+	bool	is_moving;
+}	t_player;
+
+typedef struct s_data
 {
 	t_mlx	*mlx;
 	t_map	*map;
 	t_img	*img;
-}	t_game;
-
-
+	t_ray	*ray;
+	t_player	*player;
+}	t_data;
 
 #endif
