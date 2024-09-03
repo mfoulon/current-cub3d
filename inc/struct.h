@@ -44,8 +44,10 @@ typedef struct s_texture
 typedef struct s_map
 {
 	char		**map;
+	int			**int_map;
 	int			height;
 	int			width;
+	int			offset;
 	t_texture	*texture;
 }	t_map;
 
@@ -118,13 +120,22 @@ typedef struct s_player
 	bool	is_moving;
 }	t_player;
 
+typedef struct s_keys
+{
+	bool	forward;
+	bool	backward;
+	bool	left;
+	bool	right;
+}	t_keys;
+
 typedef struct s_data
 {
 	t_mlx	*mlx;
-	t_map	*map;
+	t_map	map;
 	t_img	*img;
-	t_ray	*ray;
+	t_ray	ray;
 	t_player	*player;
+	t_keys	keys;
 }	t_data;
 
 #endif

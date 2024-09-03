@@ -46,7 +46,7 @@ int	main(int ac, char **av)
         free(data->mlx->win_ptr);
         return (MLX_ERROR);
     }
-    data->map = get_map(av[1]);
+    data->map.map = get_map(av[1]);
     data->img->mlx_img = mlx_new_image(data->mlx->mlx_ptr, WINDOW_WIDTH, WINDOW_HEIGHT);
     data->img->addr = mlx_get_data_addr(data->img->mlx_img, &data->img->bpp, &data->img->line_len, &data->img->endian);
 }
@@ -74,21 +74,4 @@ int	main(int ac, char **av)
 //     ft_printf("WE = %s", texture->west_wall);
 //     ft_printf("C = %s", texture->ceiling);
 //     ft_printf("F = %s", texture->floor);
-// }
-
-
-// /************************** MAIN *****************************/
-
-
-// int main(int ac, char **av)
-// {
-//     t_map   map;
-
-//     if (ac == 2)
-//     {
-//         map = *(get_map(av[1]));
-//         print_map(&map);
-//         print_texture(map.texture);
-//     }
-//     return (1);
 // }

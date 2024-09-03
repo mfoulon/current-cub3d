@@ -68,3 +68,31 @@ void	get_map_dim(t_map *map, char *path)
 		line = get_next_line(fd);
 	}
 }
+
+bool	to_int_map(t_map *map)
+{
+	int	i;
+	int	j;
+
+	i = -1;
+	map->int_map = malloc(map->height * sizeof(int *));
+	if (map->int_map == NULL)
+		return (false);
+	i = -1;
+	while (++i < map->height)
+	{
+		map->int_map[i] = malloc((map->width + map->offset) * sizeof(int));
+		if (map->int_map[i] == NULL)
+			return (ft_free_void_array((void **)map->int_map, i),
+				map->int_map = NULL, false);
+		j = -1;
+		while (map->map[i][++j])
+		{
+			if (ft_strchr("01", map->map[i][j]))
+				map->int_map[i][j] = map->map[i][j] - '0';
+			else
+				map->int_map[i][j] = 0;
+		}
+	}
+	return (true);
+}

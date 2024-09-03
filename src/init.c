@@ -52,7 +52,7 @@ t_data  *init_game(void)
     if (!game)
         ft_error("[init_game(...)] : t_game malloc failed");
     garbage_collector(game, false);
-    game->map = init_map();
+    game->map.map = init_map();
 	game->mlx = init_mlx();
 	game->img = init_img();
 	return (game);

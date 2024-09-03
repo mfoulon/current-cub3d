@@ -58,18 +58,7 @@ static void	calculate_wall_distance(t_ray *ray, int **map)
 		else
 		{
 			ray->sdy += ray->ddy;
-			ray->my += ray->sy;typedef struct s_player
-{
-	double	x;
-	double	y;
-	double	dx;
-	double	dy;
-	double	px;
-	double	py;
-	double	movespeed;
-	double	rotspeed;
-	bool	is_moving;
-}	t_player;
+			ray->my += ray->sy;
 			ray->side = 1;
 		}
 		if (map[ray->my][ray->mx] > 0)
@@ -116,7 +105,7 @@ void	cast_ray(t_data *data, t_ray *ray)
 	{
 		init_ray(ray, x, &data->player);
 		calculate_step(ray, &data->player);
-		calculate_wall_distance(ray, data->map->map);
+		calculate_wall_distance(ray, data->map.int_map);
 		calculate_wall_height(ray, &data->player);
 		//update_pixel_map(data, ray, x);
 		x++;

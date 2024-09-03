@@ -1,6 +1,6 @@
 #include "cub3d.h"
 
-int render_2d(t_game *data)
+int render_2d(t_data *data)
 {
     draw_map(data);
     mlx_put_image_to_window(data->mlx->mlx_ptr, data->mlx->win_ptr,
