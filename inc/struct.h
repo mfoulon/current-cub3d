@@ -16,13 +16,27 @@
 # define WIN_WIDTH 640
 # define WIN_HEIGHT 360
 
+# define TEXTURE_SIZE 64
+# define TEXTURE_COUNT 4
+
+typedef enum e_direction
+{
+	NORTH = 0,
+	SOUTH = 1,
+	WEST = 2,
+	EAST = 3
+}	t_direction;
+
 typedef struct s_img
 {
 	void	*mlx_img;
-	char	*addr;
+	char	*path;
+	int		*addr;
 	int		bpp;	// bits per pixel
 	int		line_len;
 	int		endian;
+	int		width;
+	int		height;
 }	t_img;
 
 typedef struct s_mlx
@@ -136,6 +150,8 @@ typedef struct s_data
 	t_ray	ray;
 	t_player	*player;
 	t_keys	keys;
+	int		**pixels;
+	int					*texture_buffer[4];
 }	t_data;
 
 #endif

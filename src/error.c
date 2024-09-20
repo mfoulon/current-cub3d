@@ -12,7 +12,26 @@
 
 #include "cub3d.h"
 
-static void	delete(void *ptr);
+static void	delete(void *ptr)
+{
+	free(ptr);
+	ptr = NULL;
+}
+
+void	free_void_array(void **array, int n)
+{
+	int	i;
+
+	i = -1;
+	if (n == -1)
+		while (array[++i])
+			free(array[i]);
+	else
+		while (++i < n)
+			if (array[i])
+				free(array[i]);
+	free(array);
+}
 
 void    ft_error(char *msg)
 {
@@ -35,10 +54,4 @@ void	*garbage_collector(void *ptr, bool clean)
 		ft_lstadd_back(&garbage_list, ft_lstnew(ptr));
 		return (ptr);
 	}
-}
-
-static void	delete(void *ptr)
-{
-	free(ptr);
-	ptr = NULL;
 }

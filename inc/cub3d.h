@@ -36,6 +36,7 @@
 /************* error.c *************/
 void    ft_error(char *msg);
 void	*garbage_collector(void *ptr, bool clean);
+void	free_void_array(void **array, int n);
 
 /********** get_map_utils.c ********/
 bool	is_texture_line(char *line);
@@ -73,6 +74,9 @@ void    move_left(t_data *data);
 void	cast_ray(t_data *data, t_ray *ray);
 
 /********** render.c **************/
-int render_2d(t_data *data);
+bool	create_texture_buffer_from_img(t_data *data,
+		t_img *img, t_direction dir);
+bool    create_pixel_map(t_data *data);
+void	update_pixel_map(t_data *data, t_ray *ray, int x);
 
 #endif
