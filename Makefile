@@ -1,125 +1,69 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: baptistevieilhescaze <baptistevieilhesc    +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2024/06/01 12:45:26 by codespace         #+#    #+#              #
-#    Updated: 2024/06/16 17:36:17 by baptistevie      ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
-
-# NAME	=		cub3D
-
-# SRCS_FILES	=	get_map.c \
-# 				get_map_utils.c \
-# 				error.c \
-# 				main.c
-
-# INC_FILES	= cub3d.h
-
-# SRCS	=	$(addprefix src/, $(SRCS_FILES))
-
-# INCS	=	$(addprefix inc/, $(INC_FILES))
-
-# CC		=	clang
-
-# CFLAGS	=	-Wall -Wextra -Werror -I./inc -g3
-
-# INCLUDES	= -I. -Imlx/.
-
-# LIB		= -Lmlx -lmlx -lXext -lX11 -Llibft -lft -lm
-
-# OBJS_FILES	=	$(SRCS_FILES:%.c=%.o)
-
-# OBJS	=		$(addprefix objs/, $(OBJS_FILES))
-
-# DEP		=		$(OBJS:%.o=%.d)
-
-# all		:		$(NAME)
-
-# $(NAME)	:	$(OBJS)
-# 	make -C libft
-# 	make -C mlx
-# 	$(CC) $(CFLAGS) $(INCLUDES) -o $(NAME) $(OBJS) $(LIB)
-
-# clean	:
-# 	make -C libft fclean
-# 	make -C mlx clean
-# 	rm -rf $(OBJS) $(DEP)
-# 	rm -rf objs/
-
-# fclean	:	clean
-# 	rm -rf $(NAME)
-
-# re		:	fclean all
-
-# objs/%.o	: src/%.c $(INCS)
-# 	mkdir -p objs
-# 	$(CC) $(CFLAGS) -MMD -o $@ -c $<
-
-# .PHONY: all clean fclean re
-
 NAME = cub3d
 
+LIBFT		:= ./libft/libft.a
+LIBFT_PATH	:= "libft"
+
 CC = cc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -g
+
+ifeq ($(shell uname), Linux)
+	INCLUDES = -I/usr/include -Imlx
+else
+	INCLUDES = -I/opt/X11/include -Imlx
+endif
 
 RM = rm
 RMFLAG = -f
 
-UNAME = $(shell uname)
-
-ifeq ($(UNAME), Linux)
-	INCLUDES = -I/usr/include -Imlx -Iinc
+MLX_DIR = ./mlx
+MLX_LIB = $(MLX_DIR)/libmlx_$(UNAME).a
+ifeq ($(shell uname), Linux)
 	MLX_FLAGS = -Lmlx -lmlx -L/usr/lib/X11 -lXext -lX11 -lm
-else ifeq ($(UNAME), Darwin)
-	INCLUDES = -I/opt/X11/include -Imlx -Iinc
+else
 	MLX_FLAGS = -Lmlx -lmlx -L/usr/X11/lib -lXext -lX11 -framework OpenGL -framework AppKit
 endif
 
-MLX_DIR = ./mlx
-MLX_LIB = $(MLX_DIR)/libmlx_$(UNAME).a
-
-LIBFT_DIR = ./libft
-LIBFT_LIB = $(LIBFT_DIR)/libft.a
-LIBFT_FLAGS	= -Llibft -lft
-
-SRCS_FILES	=	get_map.c \
-				get_map_utils.c \
-				error.c \
-				hooks.c \
-				main.c
-
-INC_FILES	= cub3d.h
-
-SRCS	=	$(addprefix src/, $(SRCS_FILES))
-INCS	=	$(addprefix inc/, $(INC_FILES))
+SRCS = \
+	error.c \
+	free.c \
+	hooks.c \
+	init_map.c \
+	main.c \
+	move.c \
+	parse_utils.c \
+	parse.c \
+	player.c \
+	ray.c \
+	render.c \
+	solver.c \
+	textures.c \
+	textures_utils.c \
+	window.c
 
 OBJS = $(SRCS:.c=.o)
 
-all: $(MLX_LIB) $(LIBFT_LIB) $(NAME)
+all: $(MLX_LIB) $(NAME)
 
 .c.o:
 	$(CC) $(CFLAGS) -c -o $@ $< $(INCLUDES)
 
-$(NAME): $(OBJS)
-	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(MLX_FLAGS) $(LIBFT_FLAGS)
+$(LIBFT):
+	@make -C $(LIBFT_PATH)
+
+$(NAME): $(LIBFT) $(OBJS)
+	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) -L$(LIBFT_PATH) -lft $(MLX_FLAGS)
 
 $(MLX_LIB):
 	@make -C $(MLX_DIR)
 
-$(LIBFT_LIB):
-	@make -C $(LIBFT_DIR)
-
 clean:
+	@make clean -C $(LIBFT_PATH)
 	$(RM) $(RMFLAG) $(OBJS)
 
 fclean: clean
+	@make fclean -C $(LIBFT_PATH)
 	$(RM) $(RMFLAG) $(NAME)
 	if [ -d "./mlx" ]; then make -C $(MLX_DIR) clean; fi
-	if [ -d "./libft" ]; then make -C $(LIBFT_DIR) fclean; fi
 
 re: fclean all
 

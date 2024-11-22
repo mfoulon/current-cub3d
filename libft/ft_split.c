@@ -12,95 +12,66 @@
 
 #include "libft.h"
 
-static int	ft_is_delimiter(char c, char const *charset)
-{
-	int	i;
+static char	**ft_init_list(char const *s, char c);
+static char	**ft_fill_list_with_strs(char **list, char const *s, char c);
+static void	ft_free_list(char **list, size_t idx);
 
-	i = -1;
-	while (charset[++i])
-		if (c == charset[i])
-			return (1);
-	return (0);
-}
-
-static int	ft_countwords(char const *s, char const *charset)
+char	**ft_split(char const *s, char c)
 {
-	int	i;
-	int	new;
-	int	words;
+	char	**list;
 
 	if (!s)
 		return (0);
-	words = 0;
-	new = 1;
-	i = -1;
-	while (s[++i])
-	{
-		if (!ft_is_delimiter(s[i], charset))
-		{
-			if (new)
-				words++;
-			new = 0;
-		}
-		else
-			new = 1;
-	}
-	return (words);
+	list = ft_init_list(s, c);
+	if (!list)
+		return (0);
+	return (ft_fill_list_with_strs(list, s, c));
 }
 
-static char	*ft_strdupi(const char *s, char const *set, unsigned int *index)
+static char	**ft_init_list(char const *s, char c)
 {
-	char	*minitab;
-	int		i;
-	int		len;
+	size_t	i;
 
+	i = 0;
+	while (*++s)
+		if (*s == c && *(s - 1) != c && *(s - 1) != '\0')
+			i++;
+	if (*--s != c)
+		i++;
+	return (ft_calloc(i + 1, sizeof(char *)));
+}
+
+static char	**ft_fill_list_with_strs(char **list, char const *s, char c)
+{
+	size_t	i;
+	size_t	idx;
+	size_t	len;
+
+	i = 0;
+	idx = 0;
 	len = 0;
-	i = (*index) - 1;
-	while (s[++i] && !ft_is_delimiter(s[i], set))
-		len++;
-	minitab = (char *) ft_calloc(len + 1, sizeof(char));
-	if (!minitab)
-		return (NULL);
-	i = 0;
-	while (s[(*index)] && !ft_is_delimiter(s[(*index)], set))
-		minitab[i++] = s[(*index)++];
-	return (minitab);
-}
-
-static void	ft_freetab(char **tab)
-{
-	int	i;
-
-	i = -1;
-	while (tab[++i])
-		free(tab[i]);
-	free(tab);
-}
-
-char	**ft_split(char const *s, char const *charset)
-{
-	char			**tab;
-	int				words;
-	int				current;
-	unsigned int	i;
-
-	words = ft_countwords(s, charset);
-	tab = (char **) ft_calloc(words + 1, sizeof(char *));
-	if (!tab)
-		return (NULL);
-	current = 0;
-	i = 0;
-	while (s && current < words)
+	while (s[i])
 	{
-		while (s[i] && ft_is_delimiter(s[i], charset))
-			if (!s[i++])
-				break ;
-		tab[current] = ft_strdupi(s, charset, &i);
-		if (!tab[current++])
+		while (s[i] && s[i] != c)
+			if (++i && ++len)
+				continue ;
+		if (len > 0)
 		{
-			ft_freetab(tab);
-			return (NULL);
+			list[idx++] = ft_substr(s, i - len, len);
+			if (!list[idx - 1])
+				return (ft_free_list(list, idx), NULL);
+			len = 0;
 		}
+		if (s[i])
+			i++;
 	}
-	return (tab);
+	return (list);
+}
+
+static void	ft_free_list(char **list, size_t idx)
+{
+	while (idx--)
+		free(list[idx]);
+	free(list);
+	list = NULL;
 }
