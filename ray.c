@@ -16,9 +16,9 @@ static void     init_ray(t_ray *ray, int x, t_player *player)
  * then used to calculate the distance to the wall.
  */
 
-static void     calculate_step(t_ray *ray, t_player *player)
+static void	calculate_step(t_ray *ray, t_player *player)
 {
-   if (ray->dx < 0)
+	if (ray->dx < 0)
 	{
 		ray->sx = -1;
 		ray->sdx = (player->x - ray->mx) * ray->ddx;

@@ -76,8 +76,9 @@ static bool     parse_map(t_data *data, t_map *map)
     }
     if (!find_start(map, copy))
         return (free_array(copy, -1), false);
-    if (!resolve_map(data, copy))
-        return (printf("1"), free_array(copy, -1), false);
+    (void)data;
+    // if (!resolve_map(data, copy))   //err here or in move functions
+    //     return (free_array(copy, -1), false);
     return (free_array(copy, -1), resize_map(map, false));
 }
 

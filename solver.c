@@ -65,25 +65,26 @@ bool	resolve_map(t_data *data, char **copy_map)
 			printf("6: !copy_map[data->map.row][data->map.col - 1]\n");
 			return (false);
 		}
-		// if (find_character(data, copy_map, ' '))
-		// {
-		// 	printf("7: find_character(data, copy_map, ' ') found\n");
-		// 	return (false);
-		// }
-		// if (find_character(data, copy_map, '\n'))
-		// {
-		// 	printf("8: find_character(data, copy_map, '\\n') found\n");
-		// 	return (false);
-		// }
-		// if (find_character(data, copy_map, '	'))
-		// {
-		// 	printf("9: find_character(data, copy_map, '\\t') found\n");
-		// 	return (false);
-		// }
+		if (find_character(data, copy_map, ' '))
+		{
+			printf("7: find_character(data, copy_map, ' ') found\n");
+			return (false);
+		}
+		if (find_character(data, copy_map, '\n'))
+		{
+			printf("8: find_character(data, copy_map, '\\n') found\n");
+			return (false);
+		}
+		if (find_character(data, copy_map, '	'))
+		{
+			printf("9: find_character(data, copy_map, '\\t') found\n");
+			return (false);
+		}
 
 		// If none of the conditions are met, continue to try moving
 		if (!ft_move(data, copy_map, 1, '0'))
 		{
+			printf("resolve map : if !ft_move\n");
 			if (!ft_move_backward(data, copy_map))
 				break ;
 		}
@@ -138,6 +139,33 @@ static bool	ft_move_backward(t_data *data, char **copy_map)
 	}
 	return (true);
 }
+
+// static bool	ft_move_backward(t_data *data, char **copy_map)
+// {
+// 	if (!ft_move(data, copy_map, 1, '0')
+// 		&& data->map.col == data->map.start_col
+// 		&& data->map.row == data->map.start_row)
+// 		{
+// 			printf("10: ft_move_backward: no move possible\n");
+//             return (false);
+// 		}
+// 	if (ft_move(data, copy_map, -1, data->map.index - 1) == 0)
+// 	{
+// 		if (data->map.index == 'a')
+// 			data->map.index = 'z';
+// 		else
+// 			data->map.index -= 1;
+// 		printf("mv b : 1\n");
+// 		return (true);
+// 	}
+// 	else if ((data->map.index == 'a' && find_character(data, copy_map, 'z')))
+// 	{
+// 		ft_move(data, copy_map, -1, 'z');
+// 		data->map.index = 'z';
+// 		printf("mv b : 2");
+// 	}
+// 	return (true);
+// }
 
 static bool	find_character(t_data *data, char **copy_map, char c)
 {

@@ -41,12 +41,6 @@ typedef struct s_img
 	int		height;
 }	t_img;
 
-// typedef struct s_mlx
-// {
-// 	void	*mlx_ptr;
-// 	void	*win_ptr;
-// }	t_mlx;
-
 typedef struct s_texture
 {
 	char	*east_wall;
@@ -88,12 +82,11 @@ typedef struct s_map
 	int						start_map;
 	long					floor_hex;
 	long					ceiling_hex;
-	t_direction	start_dir;
-
 	void					*no_img;
 	void					*so_img;
 	void					*we_img;
 	void					*ea_img;
+	t_direction				start_dir;
 	//t_texture	*texture;
 }	t_map;
 
@@ -152,8 +145,6 @@ typedef struct s_keys
 
 typedef struct s_data
 {
-	//t_mlx	*mlx;
-	//	t_img	*img;
 	int		fd;
 	void	*mlx_ptr;
 	void	*win_ptr;
