@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ray.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mafoulon <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/12/03 16:06:12 by mafoulon          #+#    #+#             */
+/*   Updated: 2024/12/03 16:20:20 by mafoulon         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
-static void     init_ray(t_ray *ray, int x, t_player *player)
+static void	init_ray(t_ray *ray, int x, t_player *player)
 {
 	ray->cx = 2 * x / (double)WIN_WIDTH - 1;
 	ray->dx = player->dx + player->px * ray->cx;

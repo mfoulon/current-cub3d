@@ -1,24 +1,36 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   move.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mafoulon <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/12/03 16:08:47 by mafoulon          #+#    #+#             */
+/*   Updated: 2024/12/03 16:27:34 by mafoulon         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
-double  ft_min(double a, double b)
+double	ft_min(double a, double b)
 {
-    if (a < b)
-        return (a);
-    return (b);
+	if (a < b)
+		return (a);
+	return (b);
 }
 
-void    move_forward(t_data *data)
+void	move_forward(t_data *data)
 {
-    int     **map;
-    t_player    *p;
-    double      x;
-    double      y;
-    double      move_speed;
+	t_player	*p;
+	int			**map;
+	double		x;
+	double		y;
+	double		move_speed;
 
-    map = data->map.int_map;
-    p = &data->player;
-    move_speed = ft_min(p->movespeed, 0.1);
-    x = p->x + p->dx * move_speed;
+	map = data->map.int_map;
+	p = &data->player;
+	move_speed = ft_min(p->movespeed, 0.1);
+	x = p->x + p->dx * move_speed;
 	y = p->y + p->dy * move_speed;
 	if (map[(int)(p->y)][(int)(x)] == 0)
 		p->x += p->dx * move_speed;
@@ -26,15 +38,15 @@ void    move_forward(t_data *data)
 		p->y += p->dy * move_speed;
 }
 
-void    move_backward(t_data *data)
+void	move_backward(t_data *data)
 {
-    int     **map;
-    t_player    *p;
-    double      x;
-    double      y;
-    double      move_speed;
+	int			**map;
+	t_player	*p;
+	double		x;
+	double		y;
+	double		move_speed;
 
-    map = data->map.int_map;
+	map = data->map.int_map;
 	p = &data->player;
 	move_speed = ft_min(p->movespeed, 1);
 	x = p->x - p->dx * move_speed;
@@ -45,9 +57,9 @@ void    move_backward(t_data *data)
 		p->y -= p->dy * move_speed;
 }
 
-void    move_right(t_data *data)
+void	move_right(t_data *data)
 {
-    t_player	*p;
+	t_player	*p;
 	double		prev_dx;
 	double		prev_px;
 	double		rot_speed;
@@ -62,9 +74,9 @@ void    move_right(t_data *data)
 	p->py = prev_px * sin(rot_speed) + p->py * cos(rot_speed);
 }
 
-void    move_left(t_data *data)
+void	move_left(t_data *data)
 {
-    t_player	*p;
+	t_player	*p;
 	double		prev_dx;
 	double		prev_px;
 	double		rot_speed;

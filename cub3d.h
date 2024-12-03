@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: baptistevieilhescaze <baptistevieilhesc    +#+  +:+       +#+        */
+/*   By: mafoulon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/28 19:58:56 by codespace         #+#    #+#             */
-/*   Updated: 2024/06/16 17:35:07 by baptistevie      ###   ########.fr       */
+/*   Created: 2024/12/03 16:07:34 by mafoulon          #+#    #+#             */
+/*   Updated: 2024/12/03 16:07:37 by mafoulon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,6 @@
 # define KEY_A 97
 # define KEY_S 115
 # define KEY_D 100
-# define WALL '1'
-# define EMPT '0'
 # define MAX_FPS_AVG 10000
 
 /**                 FUNCTIONS                   **/

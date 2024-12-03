@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mafoulon <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/12/03 16:08:38 by mafoulon          #+#    #+#             */
+/*   Updated: 2024/12/03 16:28:06 by mafoulon         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 #include <stdio.h>
 
@@ -27,28 +39,28 @@ bool	ft_init(t_data *data)
 	return (true);
 }
 
-void    init_keys(t_keys *keys)
+void	init_keys(t_keys *keys)
 {
-    keys->forward = false;
-    keys->backward = false;
-    keys->left = false;
-    keys->right = false;
+	keys->forward = false;
+	keys->backward = false;
+	keys->left = false;
+	keys->right = false;
 }
 
-int main(int ac, char *av[])
+int	main(int ac, char *av[])
 {
-    t_data  data;
+	t_data	data;
 
-    (void)av;
-    if (ac != 2)
-        return (ft_error(EIO), 1);
-    if (!ft_init(&data))
-        return (1);
-    if (!fill_and_parse_data(av, &data))
-        return (free_data(&data), 1); // error here -> reslove map : map is not solvable ????
-    init_player(&data.player, &data);
-    init_keys(&data.keys);
-    init_window(&data);
-    free_data(&data);
-    return (0);
+	(void)av;
+	if (ac != 2)
+		return (ft_error(EIO), 1);
+	if (!ft_init(&data))
+		return (1);
+	if (!fill_and_parse_data(av, &data))
+		return (free_data(&data), 1);
+	init_player(&data.player, &data);
+	init_keys(&data.keys);
+	init_window(&data);
+	free_data(&data);
+	return (0);
 }

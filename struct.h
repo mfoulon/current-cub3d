@@ -31,8 +31,8 @@ typedef enum e_direction
 
 typedef struct s_img
 {
-	void	*mlx_img;
 	char	*path;
+	void	*mlx_img;
 	int		*addr;
 	int		bpp;	// bits per pixel
 	int		line_len;
@@ -40,16 +40,6 @@ typedef struct s_img
 	int		width;
 	int		height;
 }	t_img;
-
-typedef struct s_texture
-{
-	char	*east_wall;
-	char	*west_wall;
-	char	*north_wall;
-	char	*south_wall;
-	char	*floor;
-	char	*ceiling;
-}	t_texture;
 
 typedef struct s_player
 {
@@ -64,33 +54,56 @@ typedef struct s_player
 	bool	is_moving;
 }	t_player;
 
+// typedef struct s_map
+// {
+// 	char			**map;
+// 	char			*string_map;
+// 	char			*path_texture[4];
+// 	char			index;
+// 	int						str_index;
+// 	int						**int_map;
+// 	int						height;
+// 	int						width;
+// 	int						offset;
+// 	int						col;
+// 	int						row;
+// 	int						start_row;
+// 	int						start_col;
+// 	int						start_map;
+// 	long					floor_hex;
+// 	long					ceiling_hex;
+// 	void					*no_img;
+// 	void					*so_img;
+// 	void					*we_img;
+// 	void					*ea_img;
+// 	t_direction				start_dir;
+// 	//t_texture	*texture;
+// }	t_map;
+
 typedef struct s_map
 {
-	char			**map;
-	char			*string_map;
-	char			*path_texture[4];
-	char			index;
-	int						str_index;
+	char					**map;
+	char					*string_map;
 	int						**int_map;
-	int						height;
+	int						str_index;
 	int						width;
-	int						offset;
-	int						col;
-	int						row;
-	int						start_row;
-	int						start_col;
-	int						start_map;
-	long					floor_hex;
-	long					ceiling_hex;
+	int						height;
 	void					*no_img;
 	void					*so_img;
 	void					*we_img;
 	void					*ea_img;
-	t_direction				start_dir;
-	//t_texture	*texture;
+	long					floor_hex;
+	long					ceiling_hex;
+	int						col;
+	int						row;
+	char					index;
+	int						start_row;
+	int						start_col;
+	int						start_map;
+	char					*path_texture[4];
+	int						offset;
+	t_direction	start_dir;
 }	t_map;
-
-
 
 /**
  * All the raycasting data
@@ -148,12 +161,22 @@ typedef struct s_data
 	int		fd;
 	void	*mlx_ptr;
 	void	*win_ptr;
-	int		**pixels;
 	int		*texture_buffer[4];
+	int		**pixels;
 	t_ray	ray;
 	t_player	player;
 	t_map	map;
 	t_keys	keys;
 }	t_data;
+
+// typedef struct s_texture
+// {
+// 	char	*east_wall;
+// 	char	*west_wall;
+// 	char	*north_wall;
+// 	char	*south_wall;
+// 	char	*floor;
+// 	char	*ceiling;
+// }	t_texture;
 
 #endif
